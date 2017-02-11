@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html data-ng-app="notesApp">
+	
+	<head>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+		<title>Notes</title>
+	</head>
+
+	<body>
+		<div class="container" ng-controller="noteList">
+			<h1>Notes</h1>
+			<!-- Placeholder for views -->
+			<div data-ng-view=""></div>
+		</div>
+
+		<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase-database.js"></script>
+		<script>
+
+			// Initialize Firebase
+			var config = {
+				apiKey: "AIzaSyCRleI-NHYyrfY0PokhUO-OHgb2G_-2J0A",
+				authDomain: "notes-b2fd3.firebaseapp.com",
+				databaseURL: "https://notes-b2fd3.firebaseio.com",
+				storageBucket: "notes-b2fd3.appspot.com",
+				messagingSenderId: "606631758486"
+			};
+			firebase.initializeApp(config);
+
+		</script>
+
+		<script src="scripts/angular.min.js"></script>
+		<script src="scripts/angular-route.min.js"></script>
+		<script src="controllers/controller.js"></script>
+		<script>
+			notesApp.config(function ($routeProvider, $locationProvider) {
+				
+				$locationProvider.hashPrefix("");
+
+				$routeProvider
+					.when('/',
+						{
+							controller: 'noteList',
+							templateUrl: 'partials/view1.html'
+						})
+					.when('/view2',
+						{
+							controller: 'noteList',
+							templateUrl: 'partials/view2.html'
+						})
+					.otherwise({redirectTo: '/' });
+			});
+		</script>
+	</body>
+
+</html>

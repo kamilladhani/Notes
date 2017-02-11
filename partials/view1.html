@@ -1,0 +1,37 @@
+<div class="container">
+
+	<br />
+	<br />
+	
+	Search: <input type="text" data-ng-model="note.search" />
+	
+	<br />
+	<br />
+	<br />
+
+	<table class="table">
+		<thead> 
+			<tr>
+				<th>Title</th>
+				<th>Note</th>
+			</tr>
+			<tr data-ng-repeat="note in notes | filter:note.search | orderBy:'title'">
+				<td>{{ note.title }}</td> 
+				<td>{{ note.value }}</td>
+			</tr>
+		</thead>
+	</table>
+		
+	</ul>
+
+	<br />
+	Title: <input type="text" data-ng-model="newNote.title" />
+	<br />
+	Note: <input type="text" data-ng-model="newNote.value" />
+	<br />
+	<button data-ng-click="addNote()">Add Note</button>
+	<br />
+
+	<a href="#/view2">View 2</a>
+</div>
+
