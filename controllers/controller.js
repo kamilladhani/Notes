@@ -15,12 +15,10 @@ notesApp.controller('noteList', function ($scope, $timeout, $location) {
 			$scope.notes.push({title: title, value: value, id:id});
 		});
 	});
+	
 
-
-	$scope.addNote = function () {
+	$scope.newNote = function() {
 		var fbRef = firebase.database().ref().child("Notes");
-		var title = $scope.newNote.title;
-		var value = $scope.newNote.value;
 
 		var id = 0;
 		var keys = [];
@@ -38,9 +36,9 @@ notesApp.controller('noteList', function ($scope, $timeout, $location) {
 			}
 		}
 
-		var note = {'title':title, 'value':value, 'id':id};
-		fbRef.child(id).set(note);
+		$location.path('/note/' + id);
 	};
+
 
 	$scope.showNote = function(noteid) {
 		$location.path('/note/' + noteid);
@@ -49,10 +47,26 @@ notesApp.controller('noteList', function ($scope, $timeout, $location) {
 });
 
 
-notesApp.controller('noteDetails', function ($scope, $routeParams) {
+notesApp.controller('noteDetails', function ($scope, $location, $routeParams) {
 	var noteRef = firebase.database().ref('Notes/' + $routeParams['id']);
 	noteRef.on('value', function(snapshot) {
     	$scope.note = snapshot.val();
 		console.log(snapshot.val());
+		// If snapshot.val() is undefined, then we are adding a new note.
+		if (! $scope.note) {
+			$scope.note = {title: "", value: "", id: $routeParams['id'], add:"true"}
+		}
 	});
+
+	
+
+	$scope.updateNote = function() {
+		var fbRef = firebase.database().ref('Notes/' + $scope.note.id);
+		var id = $scope.note.id;
+		var title = $scope.note.title;
+		var value = $scope.note.value;
+		var note = {'title':title, 'value':value, 'id':id};
+		fbRef.set(note);
+		$location.path('/');
+	};
 });
