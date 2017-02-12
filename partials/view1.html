@@ -2,24 +2,28 @@
 
 	<br />
 	<br />
-	
+
 	Search: <input type="text" data-ng-model="note.search" />
 	
 	<br />
 	<br />
 	<br />
 
-	<table class="table">
+	<table class="table table-hover">
 		<thead> 
 			<tr>
+				<th>ID</th>
 				<th>Title</th>
 				<th>Note</th>
 			</tr>
-			<tr data-ng-repeat="note in notes | filter:note.search | orderBy:'title'">
+		</thead>
+		<tbody>
+			<tr data-ng-repeat="note in notes | filter:note.search | orderBy:'title'" data-ng-click="showNote(note.id)">
+				<td><a ng-href="#/note/{{note.id}}">{{ note.id }}</a></td>
 				<td>{{ note.title }}</td> 
 				<td>{{ note.value }}</td>
 			</tr>
-		</thead>
+		</tbody>
 	</table>
 		
 	</ul>
@@ -33,5 +37,6 @@
 	<br />
 
 	<a href="#/view2">View 2</a>
+	<a href="#/note/asfd">View 3</a>
 </div>
 

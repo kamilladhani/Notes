@@ -9,6 +9,13 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 		<title>Notes</title>
+
+		<style>
+			tr.hover {
+			   cursor: pointer;
+			   /* whatever other hover styles you want */
+			}
+		</style>
 	</head>
 
 	<body>
@@ -55,7 +62,12 @@
 							controller: 'noteList',
 							templateUrl: 'partials/view2.html'
 						})
-					.otherwise({redirectTo: '/' });
+					.when('/note/:id',
+						{
+							controller: 'noteDetails',
+							templateUrl: 'partials/view3.html'
+						})
+					.otherwise({ redirectTo: '/' });
 			});
 		</script>
 	</body>
