@@ -12,16 +12,16 @@
 	<table class="table table-hover">
 		<thead> 
 			<tr>
-				<th>ID</th>
 				<th>Title</th>
 				<th>Note</th>
+				<th>Action</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr data-ng-repeat="note in notes | filter:note.search | orderBy:'title'" data-ng-click="showNote(note.id)">
-				<td><a ng-href="#/note/{{note.id}}">{{ note.id }}</a></td>
-				<td>{{ note.title }}</td> 
-				<td>{{ note.value }}</td>
+			<tr data-ng-repeat="note in notes | filter:note.search | orderBy:'title'" >
+				<td data-ng-click="showNote(note.id)" style="cursor: pointer">{{ note.title }}</td> 
+				<td data-ng-click="showNote(note.id)" style="cursor: pointer">{{ note.value.substring(0,25) }}...</td>
+				<td><button data-ng-click="deleteNote(note.id)" class="btn btn-danger" data-toggle="confirmation" data-popout="true"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
 			</tr>
 		</tbody>
 	</table>

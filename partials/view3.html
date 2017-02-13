@@ -1,7 +1,10 @@
 <div>
 	<input data-ng-model="note.id" type="hidden" value="{{note.id}}" />
+	<br />
+	<h3> Title: </h3>
 	<textarea data-ng-model="note.title" class="form-control" rows="1"></textarea>
 	<br />
+	<h3> Note: </h3>
 	<textarea data-ng-model="note.value" class="form-control" rows="5"></textarea>
 	<br />
 	<button data-ng-if="note.add" data-ng-click="updateNote()">Add Note</button>

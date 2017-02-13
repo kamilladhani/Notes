@@ -6,6 +6,7 @@ notesApp.controller('noteList', function ($scope, $timeout, $location) {
 
 	$scope.notes = [];
 	var notesRef = firebase.database().ref().child('Notes');
+
 	notesRef.on("child_added", snap => {
 		$timeout(function() {
 			console.log("listener");
@@ -15,7 +16,20 @@ notesApp.controller('noteList', function ($scope, $timeout, $location) {
 			$scope.notes.push({title: title, value: value, id:id});
 		});
 	});
-	
+
+	notesRef.on("child_removed", snap => {
+		$timeout(function() {
+			console.log("listener");
+			var id = snap.child("id").val();
+			for (var i=0; i<$scope.notes.length; i++) {
+				if (id==$scope.notes[i].id) {
+					$scope.notes.splice(i,1);
+					break;
+				}
+			}
+		});
+	});
+
 
 	$scope.newNote = function() {
 		var fbRef = firebase.database().ref().child("Notes");
@@ -44,7 +58,49 @@ notesApp.controller('noteList', function ($scope, $timeout, $location) {
 		$location.path('/note/' + noteid);
 	};
 
+
+	$scope.deleteNote = function(noteid) {
+		// $(document).ready(function(){
+		// 	$('[data-toggle="confirmation"]').confirmation(); // make sure this is called to re-initiate the plugin after the new DOM is generated
+		// 	$('[data-toggle=confirmation]').confirmation({
+		// 	  rootSelector: '[data-toggle=confirmation]',
+		// 	  // other options
+		// 	});
+		// });
+		swal({
+			title: "Are you sure you want to delete this note?",
+			text: "You will not be able to recover it!",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes, delete it!",
+			closeOnConfirm: false
+		},
+		function(){
+			var noteRef = firebase.database().ref('Notes/' + noteid);
+		    noteRef.remove();
+			console.log("confirmed");
+		    swal({
+		    	title: "Deleted!", 
+		    	text: "Your note has been deleted", 
+		    	type: "success", 
+		    	timer: 2000
+		    });
+		});
+
+	  //   var conf = confirm("Are you sure you want to delete this note?");
+	  //   if (conf) {
+			// var noteRef = firebase.database().ref('Notes/' + noteid);
+			// noteRef.remove();
+			// console.log("confirmed");
+	  // }
+		$location.path('/');
+	};
+
+
+
 });
+
 
 
 notesApp.controller('noteDetails', function ($scope, $location, $routeParams) {
@@ -69,4 +125,6 @@ notesApp.controller('noteDetails', function ($scope, $location, $routeParams) {
 		fbRef.set(note);
 		$location.path('/');
 	};
+
+
 });
