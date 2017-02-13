@@ -1,8 +1,0 @@
-<div>
-	<h2> View 2 </h2>
-	Name: <input type="text" data-ng-model="filter.city" />
-	<ul>
-		<li data-ng-repeat="captain in captains | filter:filter.city | orderBy:'city'"> {{ captain.name }} - {{ captain.city }} </li>
-	</ul>
-</div>
-

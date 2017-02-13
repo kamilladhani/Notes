@@ -11,9 +11,26 @@
 
 	</head>
 
+
+
 	<body>
 		<div class="container" ng-controller="noteList">
-			<h1>Notes</h1>
+			<nav class="navbar navbar-inverse">
+				<div class="container-fluid">
+					<div class="navbar-header">
+					    <a class="navbar-brand" href="#/">Notes</a>
+					</div>
+					<ul class="nav navbar-nav">
+						<li><button class="btn btn-primary navbar-btn" data-ng-click="newNote()">Add Note</button></li>
+					</ul>
+					<div class="navbar-form navbar-left">
+					    <div class="form-group">
+						    <input class="form-control" type="text" data-ng-model="note.search" placeholder="Search">
+					  	</div>
+					  	<button data-ng-click="showList()" class="btn btn-default">Submit</button>
+					</div>
+				</div>
+			</nav>
 			<!-- Placeholder for views -->
 			<div data-ng-view=""></div>
 		</div>

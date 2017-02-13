@@ -4,6 +4,12 @@ notesApp.controller('noteList', function ($scope, $timeout, $location) {
 
 	console.log("controller Called");
 
+	// Delay "No results" message while things load
+	$scope.delay = true;
+    $timeout(function(){
+        $scope.delay = false;
+    }, 600);
+
 	$scope.notes = [];
 	var notesRef = firebase.database().ref().child('Notes');
 
@@ -53,6 +59,9 @@ notesApp.controller('noteList', function ($scope, $timeout, $location) {
 		$location.path('/note/' + id);
 	};
 
+	$scope.showList = function() {
+		$location.path('#/');
+	};
 
 	$scope.showNote = function(noteid) {
 		$location.path('/note/' + noteid);
@@ -60,13 +69,6 @@ notesApp.controller('noteList', function ($scope, $timeout, $location) {
 
 
 	$scope.deleteNote = function(noteid) {
-		// $(document).ready(function(){
-		// 	$('[data-toggle="confirmation"]').confirmation(); // make sure this is called to re-initiate the plugin after the new DOM is generated
-		// 	$('[data-toggle=confirmation]').confirmation({
-		// 	  rootSelector: '[data-toggle=confirmation]',
-		// 	  // other options
-		// 	});
-		// });
 		swal({
 			title: "Are you sure you want to delete this note?",
 			text: "You will not be able to recover it!",
@@ -88,12 +90,6 @@ notesApp.controller('noteList', function ($scope, $timeout, $location) {
 		    });
 		});
 
-	  //   var conf = confirm("Are you sure you want to delete this note?");
-	  //   if (conf) {
-			// var noteRef = firebase.database().ref('Notes/' + noteid);
-			// noteRef.remove();
-			// console.log("confirmed");
-	  // }
 		$location.path('/');
 	};
 
