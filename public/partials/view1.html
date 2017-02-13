@@ -12,7 +12,7 @@
 		<tbody>
 			<tr data-ng-repeat="note in filteredNotes = (notes | filter:note.search) | orderBy:'title'" >
 				<td data-ng-click="showNote(note.id)" style="cursor: pointer">{{ note.title }}</td> 
-				<td data-ng-click="showNote(note.id)" style="cursor: pointer">{{ note.value.substring(0,25) }}...</td>
+				<td data-ng-click="showNote(note.id)" style="cursor: pointer">{{ note.value | preview }}</td>
 				<td><button data-ng-click="deleteNote(note.id)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
 			</tr>
 		</tbody>

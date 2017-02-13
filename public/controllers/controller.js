@@ -1,5 +1,15 @@
 var notesApp = angular.module("notesApp", ['ngRoute']);
 
+// Initialize Firebase
+var config = {
+	apiKey: "AIzaSyCRleI-NHYyrfY0PokhUO-OHgb2G_-2J0A",
+	authDomain: "notes-b2fd3.firebaseapp.com",
+	databaseURL: "https://notes-b2fd3.firebaseio.com",
+	storageBucket: "notes-b2fd3.appspot.com",
+	messagingSenderId: "606631758486"
+};
+firebase.initializeApp(config);
+
 notesApp.config(function ($routeProvider, $locationProvider) {
 	
 	$locationProvider.hashPrefix("");
@@ -160,4 +170,18 @@ notesApp.controller('noteDetails', function ($scope, $route, $timeout, $location
 	};
 
 
+});
+
+
+notesApp.filter('preview', function() {
+    return function(str) {
+        splstr = str.split(" ");
+        if (splstr.length <= 7 && str.length < 40) {
+        	return str;
+        } else if ((splstr.length <= 7) || (splstr.length > 7 && splstr.slice(0,7).join(" ").length > 70)) {
+        	return str.substring(0,70) + "...";
+        } else {
+        	return splstr.slice(0,7).join(" ") + "...";
+        }
+    };
 });
