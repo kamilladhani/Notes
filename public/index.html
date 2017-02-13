@@ -11,17 +11,15 @@
 
 	</head>
 
-
-
 	<body>
 		<div class="container" ng-controller="noteList">
-			<nav class="navbar navbar-inverse">
+			<nav class="navbar navbar-inverse" >
 				<div class="container-fluid">
 					<div class="navbar-header">
-					    <a class="navbar-brand" href="#/">Notes</a>
+					    <a class="navbar-brand" style="cursor: pointer" data-ng-click="clearSearch()">Notes</a>
 					</div>
-					<ul class="nav navbar-nav">
-						<li><button class="btn btn-primary navbar-btn" data-ng-click="newNote()">Add Note</button></li>
+					<ul class="nav navbar-nav navbar-left">
+						<li><button class="btn btn-primary navbar-btn" data-ng-click="newNote()">New Note</button></li>
 					</ul>
 					<div class="navbar-form navbar-left">
 					    <div class="form-group">
@@ -32,8 +30,10 @@
 					</div>
 				</div>
 			</nav>
+
 			<!-- Placeholder for views -->
 			<div data-ng-view=""></div>
+
 		</div>
 
 		<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
@@ -58,33 +58,8 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="scripts/bootstrap.min.js"></script></script>
-		<!-- <script src="scripts/bootstrap-confirmation2.min.js"></script> -->
 		<script src="scripts/sweetalert.min.js"></script>
 		<script src="controllers/controller.js"></script>
-		<script>
-			notesApp.config(function ($routeProvider, $locationProvider) {
-				
-				$locationProvider.hashPrefix("");
-
-				$routeProvider
-					.when('/',
-						{
-							controller: 'noteList',
-							templateUrl: 'partials/view1.html'
-						})
-					.when('/view2',
-						{
-							controller: 'noteList',
-							templateUrl: 'partials/view2.html'
-						})
-					.when('/note/:id',
-						{
-							controller: 'noteDetails',
-							templateUrl: 'partials/view3.html'
-						})
-					.otherwise({ redirectTo: '/' });
-			});
-		</script>
 	</body>
 
 </html>

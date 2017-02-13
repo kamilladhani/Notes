@@ -1,5 +1,29 @@
 var notesApp = angular.module("notesApp", ['ngRoute']);
 
+notesApp.config(function ($routeProvider, $locationProvider) {
+	
+	$locationProvider.hashPrefix("");
+
+	$routeProvider
+		.when('/',
+			{
+				controller: 'noteList',
+				templateUrl: 'partials/view1.html'
+			})
+		.when('/view2',
+			{
+				controller: 'noteList',
+				templateUrl: 'partials/view2.html'
+			})
+		.when('/note/:id',
+			{
+				controller: 'noteDetails',
+				templateUrl: 'partials/view3.html'
+			})
+		.otherwise({ redirectTo: '/' });
+});
+
+
 notesApp.controller('noteList', function ($scope, $timeout, $location) {
 
 	console.log("controller Called");
@@ -63,10 +87,17 @@ notesApp.controller('noteList', function ($scope, $timeout, $location) {
 		$location.path('#/');
 	};
 
+
 	$scope.showNote = function(noteid) {
 		$location.path('/note/' + noteid);
 	};
 
+	$scope.clearSearch = function() {
+		$timeout(function() {
+			$("#clearSearch").click();
+		});
+		$location.path('#/');
+	};
 
 	$scope.deleteNote = function(noteid) {
 		swal({
@@ -84,7 +115,7 @@ notesApp.controller('noteList', function ($scope, $timeout, $location) {
 			console.log("confirmed");
 		    swal({
 		    	title: "Deleted!", 
-		    	text: "Your note has been deleted", 
+		    	text: "Your note has been deleted!", 
 		    	type: "success", 
 		    	timer: 2000
 		    });
@@ -110,10 +141,6 @@ notesApp.controller('noteDetails', function ($scope, $route, $timeout, $location
 		}
 	});
 
-	// $scope.clearSearch = function() {
-	// 	angular.element('#clearSearch').triggerHandler('click');
-	// }
-
 	$scope.updateNote = function($state) {
 		var fbRef = firebase.database().ref('Notes/' + $scope.note.id);
 		var id = $scope.note.id;
@@ -123,6 +150,11 @@ notesApp.controller('noteDetails', function ($scope, $route, $timeout, $location
 		fbRef.set(note);
 		$timeout(function() {
 			$("#clearSearch").click();
+		});
+		swal({
+		  title: "Note Saved!",
+		  type: 'success',
+		  timer: 2000
 		});
 		$location.path('/');
 	};
