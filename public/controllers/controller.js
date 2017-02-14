@@ -18,17 +18,12 @@ notesApp.config(function ($routeProvider, $locationProvider) {
 		.when('/',
 			{
 				controller: 'noteList',
-				templateUrl: 'partials/view1.html'
-			})
-		.when('/view2',
-			{
-				controller: 'noteList',
-				templateUrl: 'partials/view2.html'
+				templateUrl: 'partials/main.html'
 			})
 		.when('/note/:id',
 			{
 				controller: 'noteDetails',
-				templateUrl: 'partials/view3.html'
+				templateUrl: 'partials/details.html'
 			})
 		.otherwise({ redirectTo: '/' });
 });
