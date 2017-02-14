@@ -2,7 +2,7 @@
   "name": "notes",
   "version": "1.0.0",
   "description": "Simple Notes app",
-  "main": "app.js",
+  "main": "controller.js",
   "dependencies": {},
   "devDependencies": {},
   "scripts": {
